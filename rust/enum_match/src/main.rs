@@ -14,17 +14,31 @@ enum Coin {
 }
 
 fn value_in_cents(coin: Coin) -> u8 {
-    match coin {
-        Coin::Penny => {
-            println!("Lucky Penny");
-            1
-        }
-        Coin::Nickel => 5,
-        Coin::Dime => 10,
-        Coin::Quarter(state) => {
-            println!("State Quarter from {:?}!", state);
-            25
-        }
+    let mut count: u8 = 0;
+    // match coin {
+    //     // Coin::Penny => {
+    //     //     println!("Lucky Penny");
+    //     //     1
+    //     // }
+    //     // Coin::Nickel => 5,
+    //     // Coin::Dime => 10,
+    //     Coin::Quarter(state) => {
+    //         println!("State Quarter from {:?}!", state);
+    //         25
+    //     }
+    //     _ => {
+    //         count += 1;
+    //         count
+    //     }
+    // }
+
+    // 改良后
+    if let Coin::Quarter(state) = coin {
+        println!("State Quarter from {:?}!", state);
+        return 25;
+    } else {
+        count += 1;
+        count
     }
 }
 
@@ -56,6 +70,17 @@ fn main() {
         // 必须有一个接受穷尽的值
         // _ => reroll(),
         _ => (),
+    }
+
+    // if let 的用法
+    let config_max = Some(3i8);
+    match config_max {
+        Some(i) => println!("i: {}", i),
+        _ => (),
+    }
+
+    if let Some(max) = config_max {
+        println!("The maximum is configured to be {}", max);
     }
 }
 
