@@ -1,19 +1,6 @@
-mod front_of_house {
-    // 默认私有的，添加 pub 才能变成公有的
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
+mod front_of_house;
 
-        pub fn seat_at_table() {}
-    }
-
-    pub mod serving {
-        fn take_order() {}
-
-        pub fn server_order() {}
-
-        fn take_payment() {}
-    }
-}
+pub use crate::front_of_house::hosting;
 
 mod back_of_house {
     use crate::front_of_house::serving;
@@ -42,13 +29,11 @@ mod back_of_house {
     fn fix_incorrect_order() {
         cook_order();
         super::eat_at_restaurant();
-        serving::server_order();
+        serving::server_order(); // 在其他模块内的调用方式会不相同
     }
 
     fn cook_order() {}
 }
-
-use crate::front_of_house::hosting;
 
 pub fn eat_at_restaurant() {
     // 绝对路径
