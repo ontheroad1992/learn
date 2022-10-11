@@ -11,5 +11,7 @@ describe("stack array", () => {
     stack.push(5)
     stack.push(10)
     expect(stack.peek()).toBe(10)
+    stack.push(123)
+    expect(stack.peek()).toBe(123)
   })
 })
