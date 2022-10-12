@@ -1,19 +1,24 @@
+const items: WeakMap<StackObject<any>, any[]> = new WeakMap()
 
 export class StackObject<T> {
-  count: number = 0;
-  items: { [key: number]: T } = {};
+  #count: number = 0;
+
+  constructor() {
+    items.set(this, [])
+  }
 
   push(element: T) {
-    this.items[this.count] = element
-    this.count += 1;
+    const s = items.get(this)
+    s?.push(element)
+    this.#count += 1;
   }
 
   size() {
-    return this.count
+    return this.#count
   }
 
   isEmpty() {
-    return this.count === 0
+    return this.#count === 0
   }
 
   pop() {
@@ -21,33 +26,34 @@ export class StackObject<T> {
       return undefined
     }
 
-    this.count -= 1;
-    const result = this.items[this.count]
-    delete this.items[this.count]
-    return result
+    this.#count -= 1;
+    const s = items.get(this)
+
+    return s?.pop()
   }
 
-  peek() {
+  peek(): any {
     if (this.isEmpty()) {
       return undefined
     }
 
-    return this.items[this.count -1]
+    return items.get(this)?.[this.#count - 1]
   }
 
   clear() {
-    this.items = {}
-    this.count = 0
+    items.set(this, [])
+    this.#count = 0
   }
 
-  toString() {
+  toString(): string {
     if (this.isEmpty()) {
       return ''
     }
 
-    let objectString = this.items[0] + ''
-    for (let i = 1; i < this.count; i++) {
-      objectString = objectString + ',' + this.items[i]
+    const s = items.get(this)
+    let objectString = s?.[0] + ''
+    for (let i = 1; i < this.#count; i++) {
+      objectString = objectString + ',' + s?.[i]
     }
     return objectString
   }

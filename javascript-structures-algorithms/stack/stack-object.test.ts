@@ -2,12 +2,12 @@ import { StackObject } from './stack-object'
 
 describe("test stack.ts", () => {
   const stack = new StackObject()
-
+  console.log(Object.getOwnPropertyNames(stack))
 
   test("test the push method", () => {
     stack.push(1)
     stack.push(2)
-    expect(stack.items[0]).toBe(1)
+    expect(stack.peek()).toBe(2)
   })
 
   test("test the size method", () => {
@@ -38,7 +38,6 @@ describe("test stack.ts", () => {
 
   test("test the clear method", () => {
     stack.clear()
-    expect(stack.items).toMatchObject({})
     expect(stack.size()).toBe(0)
   })
 })
