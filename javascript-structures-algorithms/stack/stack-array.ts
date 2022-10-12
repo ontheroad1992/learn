@@ -1,4 +1,4 @@
-export default class Stack<E extends any> {
+export class StackArray<E extends any> {
   items: E [];
 
   constructor() {
@@ -24,5 +24,9 @@ export default class Stack<E extends any> {
 
   clear() {
     this.items = []
+  }
+
+  size() {
+    return this.items.length
   }
 }
