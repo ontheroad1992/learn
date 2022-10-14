@@ -10,6 +10,9 @@ export class StackArray<E extends any> {
   }
 
   pop() {
+    if (this.isEmpty()) {
+      return ''
+    }
     return this.items.pop()
   }
 
